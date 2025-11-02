@@ -34,13 +34,13 @@ const visible = computed({
 
 const formData = reactive<AddRoleCommand | UpdateRoleCommand>({
   roleId: 0,
-  dataScope: "",
+  dataScope: 4, //@TODO ligq 本部门以及子孙部门数据权限"
   menuIds: [],
   remark: "",
   roleKey: "",
   roleName: "",
   roleSort: 1,
-  status: ""
+  status: 1 //@TODO ligq 本部门以及子孙部门数据权限"
 });
 
 const statusList = useUserStoreHook().dictionaryMap["common.status"];

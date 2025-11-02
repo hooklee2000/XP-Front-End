@@ -35,13 +35,13 @@ export function getRoleInfoApi(roleId: number) {
 }
 
 export interface AddRoleCommand {
-  dataScope?: string;
+  dataScope?: number;
   menuIds: number[];
   remark?: string;
   roleKey: string;
   roleName: string;
   roleSort: number;
-  status?: string;
+  status?: number;
 }
 
 export function addRoleApi(data: AddRoleCommand) {
