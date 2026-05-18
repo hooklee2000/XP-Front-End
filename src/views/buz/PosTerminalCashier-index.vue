@@ -1,0 +1,277 @@
+<script setup lang="ts">
+import { ref } from "vue";
+import { usePosTerminalCashierHook } from "./utils/PosTerminalCashier-hook";
+import { PureTableBar } from "@/components/RePureTableBar";
+import { useRenderIcon } from "@/components/ReIcon/src/hooks";
+
+import Delete from "@iconify-icons/ep/delete";
+import Search from "@iconify-icons/ep/search";
+import Refresh from "@iconify-icons/ep/refresh";
+import { useUserStoreHook } from "@/store/modules/user";
+// TODO 这个导入声明好长  看看如何优化
+import { CommonUtils } from "@/utils/common";
+import PosTerminalCashierFormModal from "@/views/buz/PosTerminalCashier-form-modal.vue";
+import EditPen from "@iconify-icons/ep/edit-pen";
+import { PosTerminalCashierPageResponse } from "@/api/buz/PosTerminalCashier-client";
+import AddFill from "@iconify-icons/ri/add-circle-line";
+
+/** 组件name最好和菜单表中的router_name一致 */
+defineOptions({
+  name: "PosTerminalCashier"
+});
+
+const loginLogStatusList = useUserStoreHook().dictionaryList["common.status"];
+
+const tableRef = ref();
+
+const searchFormRef = ref();
+const {
+  searchFormParams,
+  pageLoading,
+  columns,
+  dataList,
+  pagination,
+  timeRange,
+  defaultSort,
+  multipleSelection,
+  onSearch,
+  resetForm,
+  onSortChanged,
+  exportAllExcel,
+  getPosTerminalCashierList,
+  handleDelete,
+  handleBulkDelete
+} = usePosTerminalCashierHook();
+
+const opType = ref<"add" | "update">("add");
+const modalVisible = ref(false);
+const opRow = ref<PosTerminalCashierPageResponse>();
+function openDialog(type: "add" | "update", row?: PosTerminalCashierPageResponse) {
+  opType.value = type;
+  opRow.value = row;
+  modalVisible.value = true;
+}
+</script>
+
+<template>
+  <div class="main">
+    <!-- 搜索栏 -->
+    <el-form
+      ref="searchFormRef"
+      :inline="true"
+      :model="searchFormParams"
+      class="search-form bg-bg_color w-[99/100] pl-8 pt-[12px]"
+    >
+      <el-form-item label="关系ID" prop="id">
+        <el-input
+          v-model="searchFormParams.id"
+          placeholder="请输入关系ID"
+          clearable
+          class="!w-[200px]"
+        />
+      </el-form-item>
+      <el-form-item label="POS终端ID" prop="terminalId">
+        <el-input
+          v-model="searchFormParams.terminalId"
+          placeholder="请输入POS终端ID"
+          clearable
+          class="!w-[200px]"
+        />
+      </el-form-item>
+      <el-form-item label="收银员ID" prop="cashierId">
+        <el-input
+          v-model="searchFormParams.cashierId"
+          placeholder="请输入收银员ID"
+          clearable
+          class="!w-[200px]"
+        />
+      </el-form-item>
+      <el-form-item label="班次" prop="shiftType">
+        <el-input
+          v-model="searchFormParams.shiftType"
+          placeholder="请输入班次"
+          clearable
+          class="!w-[200px]"
+        />
+      </el-form-item>
+      <el-form-item label="上机时间" prop="startTime">
+        <el-input
+          v-model="searchFormParams.startTime"
+          placeholder="请输入上机时间"
+          clearable
+          class="!w-[200px]"
+        />
+      </el-form-item>
+      <el-form-item label="下机时间" prop="endTime">
+        <el-input
+          v-model="searchFormParams.endTime"
+          placeholder="请输入下机时间"
+          clearable
+          class="!w-[200px]"
+        />
+      </el-form-item>
+      <el-form-item label="当前是否有效" prop="isActive">
+        <el-input
+          v-model="searchFormParams.isActive"
+          placeholder="请输入当前是否有效"
+          clearable
+          class="!w-[200px]"
+        />
+      </el-form-item>
+      <el-form-item label="状态(1启用 0停用)" prop="status">
+        <el-input
+          v-model="searchFormParams.status"
+          placeholder="请输入状态(1启用 0停用)"
+          clearable
+          class="!w-[200px]"
+        />
+      </el-form-item>
+      
+      <el-form-item label="状态：" prop="status">
+        <el-select
+          v-model="searchFormParams.status"
+          placeholder="请选择状态"
+          clearable
+          class="!w-[180px]"
+        >
+          <el-option
+            v-for="dict in loginLogStatusList"
+            :key="dict.value"
+            :label="dict.label"
+            :value="dict.value"
+          />
+        </el-select>
+      </el-form-item>
+      <el-form-item label="创建时间">
+        <el-date-picker
+          class="!w-[240px]"
+          v-model="timeRange"
+          value-format="YYYY-MM-DD"
+          type="daterange"
+          range-separator="-"
+          start-placeholder="开始日期"
+          end-placeholder="结束日期"
+        />
+      </el-form-item>
+      <el-form-item>
+        <el-button
+          type="primary"
+          :icon="useRenderIcon(Search)"
+          :loading="pageLoading"
+          @click="onSearch(tableRef)"
+        >
+          搜索
+        </el-button>
+        <el-button
+          :icon="useRenderIcon(Refresh)"
+          @click="resetForm(searchFormRef, tableRef)"
+        >
+          重置
+        </el-button>
+      </el-form-item>
+    </el-form>
+
+    <!-- table bar 包裹  table -->
+    <PureTableBar title="POS终端与收银员关系表列表" :columns="columns" @refresh="onSearch">
+      <!-- 表格操作栏 -->
+      <template #buttons>
+        <el-button
+          type="primary"
+          :icon="useRenderIcon(AddFill)"
+          @click="openDialog('add')"
+        >
+          新增POS终端与收银员关系表
+        </el-button>
+        <el-button
+          type="danger"
+          :icon="useRenderIcon(Delete)"
+          @click="handleBulkDelete(tableRef)"
+        >
+          批量删除
+        </el-button>
+        <el-button
+          type="primary"
+          @click="CommonUtils.exportExcel(columns, dataList, 'POS终端与收银员关系表列表')"
+        >
+          单页导出
+        </el-button>
+        <el-button type="primary" @click="exportAllExcel">全部导出</el-button>
+      </template>
+      <template v-slot="{ size, dynamicColumns }">
+        <pure-table
+          border
+          ref="tableRef"
+          align-whole="center"
+          showOverflowTooltip
+          table-layout="auto"
+          :loading="pageLoading"
+          :size="size"
+          adaptive
+          :data="dataList"
+          :columns="dynamicColumns"
+          :default-sort="defaultSort"
+          :pagination="pagination"
+          :paginationSmall="size === 'small' ? true : false"
+          :header-cell-style="{
+            background: 'var(--el-table-row-hover-bg-color)',
+            color: 'var(--el-text-color-primary)'
+          }"
+          @page-size-change="getPosTerminalCashierList"
+          @page-current-change="getPosTerminalCashierList"
+          @sort-change="onSortChanged"
+          @selection-change="
+            rows => (multipleSelection = rows.map(item => item.id))
+          "
+        >
+          <template #operation="{ row }">
+            <el-button
+              class="reset-margin"
+              link
+              type="primary"
+              :size="size"
+              :icon="useRenderIcon(EditPen)"
+              @click="openDialog('update', row)"
+            >
+              编辑
+            </el-button>
+            <el-popconfirm
+              :title="`是否确认删除编号为${row.menuId}的这个POS终端与收银员关系表`"
+              @confirm="handleDelete(row)"
+            >
+              <template #reference>
+                <el-button
+                  class="reset-margin"
+                  link
+                  type="danger"
+                  :size="size"
+                  :icon="useRenderIcon(Delete)"
+                >
+                  删除
+                </el-button>
+              </template>
+            </el-popconfirm>
+          </template>
+        </pure-table>
+      </template>
+    </PureTableBar>
+
+    <PosTerminalCashier-form-modal
+      v-model="modalVisible"
+      :type="opType"
+      :row="opRow"
+      @success="onSearch"
+    />
+  </div>
+</template>
+
+<style scoped lang="scss">
+:deep(.el-dropdown-menu__item i) {
+  margin: undefined;
+}
+
+.search-form {
+  :deep(.el-form-item) {
+    margin-bottom: 12px;
+  }
+}
+</style>

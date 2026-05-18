@@ -3,9 +3,10 @@ import * as CryptoJS from "crypto-js";
 import { isEmpty } from "@pureadmin/utils";
 
 // 密钥对生成 http://web.chacuo.net/netrsakeypair
+// 流行是pkcs#8格式
 // RSA 公钥 对应的私钥放在后端项目的application-basic.yml文件下
 const publicKey =
-  "MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCh6HkK+rCM37FAzCHVythTc6pxvr551K07CRhdX/NjCddHAuQMOd/57R5fiIwgVNEfCsD1cIyS6A8IWj4DtJLR2t29JehPpqiFSJ4hNtDcLNxNJiYRcCQvyMQeyQIPE5Ljc35c72YwDtQAsIJChsauyLrc+E6HC3gn1JDm18HNXwIDAQAB";
+  "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA65cBX6hi14rEw7v36NI6q17qVdDBu8TZQfp3wruhnwWRpHxF7sgYV1eMV1XY/+W3XgJeeIoJWrJDSiEyoXUKEOFNL+Om6Z3aIiZUJLLbZUOxDotidxpQJzPFwmgG6/aEWVBFJTkBtPFukJiGFLhvZ3NTZDQsT4wVgPZKzAap7pT0mlwcq+O6vC/Z4ewleBwdNdYtm9/pICG090jUmEruol/hE8T4JfjXtPc+AwG+GAQ9uNV3NjXPDPF9N4J8M8Nnw03jMQuyVKHtOU8jgut4oAkOWgc/weXnmoFacjCp04e2x6Qbn62m62dhSNtVSq+czGj/OLPhmHnm3JM5unlh4wIDAQAB";
 
 // 加密
 export function rsaEncrypt(txt): string {
@@ -23,7 +24,7 @@ export function rsaEncrypt(txt): string {
   return encryptedValue;
 }
 
-const aesKey = "agileboot1234567";
+const aesKey = "xp1234567yt";
 
 export function aesEncrypt(txt): string {
   if (isEmpty(txt)) {

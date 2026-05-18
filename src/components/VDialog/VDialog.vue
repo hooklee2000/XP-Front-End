@@ -81,7 +81,7 @@
 import { computed, ref } from "vue";
 import { ElDialog, ElButton, ElScrollbar } from "element-plus";
 import { DialogEmits, DialogProps } from "./dialog";
-import { Close } from "@element-plus/icons-vue";
+//import { Close } from "@element-plus/icons-vue";
 import FullScreenMaximize from "@/assets/svg/FullScreenMaximize.svg?component";
 import FullScreenMinimize from "@/assets/svg/FullScreenMinimize.svg?component";
 

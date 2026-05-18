@@ -35,6 +35,16 @@ export default ({ command, mode }: ConfigEnv): UserConfigExport => {
     resolve: {
       alias
     },
+    css: {
+      preprocessorOptions: {
+        scss: {
+          // 静默弃用警告
+          silenceDeprecations: ['global-builtin', 'color-functions', 'legacy-js-api'],
+          // 或者完全静默依赖包中的警告
+          quietDeps: true
+        }
+      }
+    },
     // 服务端渲染
     server: {
       // 是否开启 https

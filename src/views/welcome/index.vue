@@ -5,5 +5,5 @@ defineOptions({
 </script>
 
 <template>
-  <h1>Agileboot前端预览</h1>
+  <h1>聚宝源前端预览</h1>
 </template>

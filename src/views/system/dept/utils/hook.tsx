@@ -19,7 +19,7 @@ import { isAllEmpty } from "@pureadmin/utils";
 export function useHook() {
   const searchFormParams = reactive({
     deptName: "",
-    status: null
+    status: undefined
   });
 
   const formRef = ref();

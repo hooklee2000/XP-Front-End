@@ -22,7 +22,7 @@ import { IconifyIconOnline } from "@/components/ReIcon";
 export function useHook() {
   const searchFormParams = reactive({
     menuName: "",
-    status: null
+    status: undefined
   });
 
   const formRef = ref();
@@ -126,7 +126,7 @@ export function useHook() {
   async function onSearch() {
     loading.value = true;
     // 这里是返回一维数组结构，前端自行处理成树结构，返回格式要求：唯一id加父节点parentId，parentId取父节点id
-    const { data } = await getMenuListApi({ isButton: null }).finally(() => {
+    const { data } = await getMenuListApi({ isButton: undefined }).finally(() => {
       loading.value = false;
     });
     originalDataList.value = data;

@@ -27,7 +27,7 @@ import { getRoleListApi } from "@/api/system/role";
 
 export function useHook() {
   const searchFormParams = reactive<UserQuery>({
-    deptId: null,
+    deptId: undefined,
     phoneNumber: undefined,
     status: undefined,
     username: undefined,
@@ -153,10 +153,8 @@ export function useHook() {
 
   function onChange({ row, index }) {
     ElMessageBox.confirm(
-      `确认要<strong>${
-        row.status === 0 ? "停用" : "启用"
-      }</strong><strong style='color:var(--el-color-primary)'>${
-        row.username
+      `确认要<strong>${row.status === 0 ? "停用" : "启用"
+      }</strong><strong style='color:var(--el-color-primary)'>${row.username
       }</strong>用户吗?`,
       "系统提示",
       {
