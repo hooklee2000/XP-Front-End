@@ -39,10 +39,6 @@ export interface StoreListCommand extends BasePageQuery {
   targetGrowthAmount?: number;
   // 状态(1启用 0停用)
   status?: number;
-  // 创建时间
-  createdTime?: Date;
-  // 更新时间
-  updatedTime?: Date;
 }
 
 export interface StorePageResponse {
@@ -85,10 +81,6 @@ export interface StorePageResponse {
   targetGrowthAmount?: number;
   // 状态(1启用 0停用)
   status?: number;
-  // 创建时间
-  createdTime?: Date;
-  // 更新时间
-  updatedTime?: Date;
 }
 
 export function getStoreListApi(params: StoreListCommand) {
@@ -158,10 +150,6 @@ export interface StoreAddCommand {
   targetGrowthAmount?: number;
   // 状态(1启用 0停用)
   status?: number;
-  // 创建时间
-  createdTime?: Date;
-  // 更新时间
-  updatedTime?: Date;
 }
 
 export const addStoreApi = (data: StoreAddCommand) => {

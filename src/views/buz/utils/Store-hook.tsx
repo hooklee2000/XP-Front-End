@@ -21,7 +21,7 @@ export function useStoreHook() {
   };
 
   const pagination: PaginationProps = {
-    total: undefined,
+    total: 0,
     pageSize: 10,
     currentPage: 1,
     background: true
@@ -48,44 +48,44 @@ export function useStoreHook() {
 
   const searchFormParams = reactive<StoreListCommand>({
     // 门店ID
-    id: undefined,
+    id: 0,
     // 门店全称
-    name: undefined,
+    name: "",
     // 门店简称（滚动展示）
-    shortName: undefined,
+    shortName: "",
     // 品牌名称
-    brand: undefined,
+    brand: "",
     // 省
-    province: undefined,
+    province: "",
     // 市
-    city: undefined,
+    city: "",
     // 区县
-    county: undefined,
+    county: "",
     // 街道镇乡
-    street: undefined,
+    street: "",
     // 详细地址
-    address: undefined,
+    address: "",
     // 联系负责人
-    contactPerson: undefined,
+    contactPerson: "",
     // 联系人电话
-    contactPhone: undefined,
+    contactPhone: "",
     // 营业执照号
-    businessLicenseNo: undefined,
+    businessLicenseNo: "",
     // 是否启用抽奖
-    lotteryEnabled: undefined,
+    lotteryEnabled: 0,
     // 最低抽奖金额
-    lotteryMinAmount: undefined,
+    lotteryMinAmount: 0,
     // 每日预算
-    dailyBudget: undefined,
+    dailyBudget: 0,
     // 每月预算
-    monthlyBudget: undefined,
+    monthlyBudget: 0,
     // 服务费比例
-    serviceFeeRate: undefined,
+    serviceFeeRate: 0,
     // 目标增长营业额
-    targetGrowthAmount: undefined,
+    targetGrowthAmount: 0,
     // 状态(1启用 0停用)
-    status: undefined,
-
+    status: 0,
+    createTime: ""
   });
 
   const dataList = ref([]);
@@ -194,7 +194,6 @@ export function useStoreHook() {
       prop: "status",
       minWidth: 100
     },
-
 
     {
       label: "状态",

@@ -214,7 +214,6 @@ function openDialog(type: "add" | "update", row?: StorePageResponse) {
           class="!w-[200px]"
         />
       </el-form-item>
-      
       <el-form-item label="状态：" prop="status">
         <el-select
           v-model="searchFormParams.status"
@@ -354,7 +353,7 @@ function openDialog(type: "add" | "update", row?: StorePageResponse) {
 
 <style scoped lang="scss">
 :deep(.el-dropdown-menu__item i) {
-  margin: undefined;
+  margin: 0;
 }
 
 .search-form {
