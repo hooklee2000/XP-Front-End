@@ -158,7 +158,10 @@ function openDialog(type: "add" | "update", row?: LotteryConfigPageResponse) {
           />
         </el-select>
       </el-form-item>
-      <el-form-item label="创建时间">
+	  
+	    
+	  
+      <el-form-item label="生效日期">
         <el-date-picker
           class="!w-[240px]"
           v-model="timeRange"
@@ -169,6 +172,7 @@ function openDialog(type: "add" | "update", row?: LotteryConfigPageResponse) {
           end-placeholder="结束日期"
         />
       </el-form-item>
+	  
       <el-form-item>
         <el-button
           type="primary"

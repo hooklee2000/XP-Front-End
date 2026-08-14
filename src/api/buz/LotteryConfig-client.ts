@@ -23,6 +23,11 @@ export interface LotteryConfigListCommand extends BasePageQuery {
   status?: number;
   // 创建时间
   createdTime?: Date;
+  
+  // 生效日期
+	effectiveDate?: Date;
+	// 中奖序号（当天第几单中奖）
+	winningSequence?: number;
 }
 
 export interface LotteryConfigPageResponse {
@@ -49,6 +54,10 @@ export interface LotteryConfigPageResponse {
   status?: number;
   // 创建时间
   createdTime?: Date;
+  // 生效日期
+	effectiveDate?: Date;
+	// 中奖序号（当天第几单中奖）
+	winningSequence?: number;
 }
 
 export function getLotteryConfigListApi(params: LotteryConfigListCommand) {
@@ -102,6 +111,10 @@ export interface LotteryConfigAddCommand {
   status?: number;
   // 创建时间
   createdTime?: Date;
+  // 生效日期
+	effectiveDate?: Date;
+	// 中奖序号（当天第几单中奖）
+	winningSequence?: number;
 }
 
 export const addLotteryConfigApi = (data: LotteryConfigAddCommand) => {

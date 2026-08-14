@@ -51,6 +51,10 @@ const formData = reactive<LotteryConfigAddCommand | LotteryConfigUpdateCommand>(
   isSpecialPrize: undefined,
   // 状态(1启用 0停用)
   status: undefined,
+  // 生效日期
+	effectiveDate: undefined,
+	// 中奖序号（当天第几单中奖）
+	winningSequence: undefined,
 });
 
 const statusList = useUserStoreHook().dictionaryMap["common.status"];
@@ -190,7 +194,8 @@ async function handleConfirm() {
       </el-form-item>
       <el-form-item prop="status" label="状态(1启用 0停用)" required inline-message>
         <el-input v-model="formData.status" />
-      </el-form-item>
+      </el-form-item>	  
+	
       
       <el-form-item prop="status" label="抽奖配置表状态">
         <el-radio-group v-model="formData.status">
@@ -203,6 +208,17 @@ async function handleConfirm() {
           </el-radio>
         </el-radio-group>
       </el-form-item>
+	  
+	  
+	   <el-form-item prop="effectiveDate" label="生效日期" required inline-message>
+        <el-input v-model="formData.effectiveDate" />
+      </el-form-item>
+	  
+	   <el-form-item prop="winningSequence" label="中奖序号（当天第几单中奖）" required inline-message>
+        <el-input v-model="formData.winningSequence" />
+      </el-form-item>
+	  
+	  
       <el-form-item prop="remark" label="备注" style="margin-bottom: undefined">
         <el-input type="textarea" v-model="formData.remark" />
       </el-form-item>

@@ -16,7 +16,7 @@ const statusMap = useUserStoreHook().dictionaryMap["common.status"];
 
 export function useLotteryConfigHook() {
   const defaultSort: Sort = {
-    prop: "createTime",
+    prop: "effectiveDate",
     order: "ascending"
   };
 
@@ -67,6 +67,11 @@ export function useLotteryConfigHook() {
     isSpecialPrize: undefined,
     // 状态(1启用 0停用)
     status: undefined,
+	// 生效日期
+	effectiveDate: undefined,
+	// 中奖序号（当天第几单中奖）
+	winningSequence: undefined,
+	
 
     createTime: undefined
   });
@@ -149,12 +154,17 @@ export function useLotteryConfigHook() {
       )
     },
     {
-      label: "创建时间",
+      label: "当天中奖序号",
+      prop: "winningSequence",
+      minWidth: 100
+    },
+    {
+      label: "生效时间",
       minWidth: 160,
-      prop: "createTime",
+      prop: "effectiveDate",
       sortable: "custom",
-      formatter: ({ createTime }) =>
-        dayjs(createTime).format("YYYY-MM-DD HH:mm:ss")
+      formatter: ({ effectiveDate }) =>
+        dayjs(effectiveDate).format("YYYY-MM-DD")
     },
     {
       label: "操作",
@@ -173,7 +183,7 @@ export function useLotteryConfigHook() {
 
   async function onSearch(tableRef) {
     // 点击搜索的时候，需要重置排序，重新排序的时候会重置分页并发起查询请求
-    tableRef.getTableRef().sort("createTime", "ascending");
+    tableRef.getTableRef().sort("effectiveDate", "ascending");
   }
 
   function resetForm(formEl, tableRef) {
