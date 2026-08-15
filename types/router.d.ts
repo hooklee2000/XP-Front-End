@@ -31,7 +31,7 @@ declare global {
     frameSrc?: string;
     /** 是否是内部页面   使用frameSrc来嵌入页面时，当isFrameSrcInternal=true的时候, 前端需要做特殊处理  */
     /** 比如链接是 /druid/login.html */
-    /** 前端需要处理成 http://localhost:8080/druid/login.html */
+    /** 前端需要处理成 http://localhost:7050/druid/login.html */
     isFrameSrcInternal?: boolean;
     /** `iframe`页是否开启首次加载动画（默认`true`）`可选` */
     frameLoading?: boolean;

@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "vite",
     "serve": "pnpm dev",
-    "build": "rimraf dist && NODE_OPTIONS=--max-old-space-size=8192 vite build",
+    "build": "rimraf dist &&  vite build",
     "build:staging": "rimraf dist && vite build --mode staging",
     "report": "rimraf dist && vite build",
     "preview": "vite preview",
@@ -53,6 +53,7 @@
     "qs": "^6.11.2",
     "responsive-storage": "^2.2.0",
     "sortablejs": "^1.15.0",
+    "tippy.js": "^6.3.7",
     "typeit": "^8.7.1",
     "vue": "^3.3.4",
     "vue-demi": "^0.14.10",
