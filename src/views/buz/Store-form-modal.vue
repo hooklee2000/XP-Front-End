@@ -69,6 +69,11 @@ const formData = reactive<StoreAddCommand | StoreUpdateCommand>({
   targetGrowthAmount: undefined,
   // 状态(1启用 0停用)
   status: undefined,
+    // 解析规则版本号
+  parseRule: undefined,
+
+ //  解析规则版本号
+ parseRuleVersion: undefined,
 });
 
 const statusList = useUserStoreHook().dictionaryMap["common.status"];
@@ -289,6 +294,13 @@ async function handleConfirm() {
       </el-form-item>
       <el-form-item prop="status" label="状态(1启用 0停用)" required inline-message>
         <el-input v-model="formData.status" />
+      </el-form-item>
+
+      <el-form-item prop="parseRule" label="解析规则" required inline-message>
+        <el-input v-model="formData.parseRule" />
+      </el-form-item>
+      <el-form-item prop="parseRuleVersion" label="解析规则版本号" required inline-message>
+        <el-input v-model="formData.parseRuleVersion" />
       </el-form-item>
       
       <el-form-item prop="status" label="门店表状态">

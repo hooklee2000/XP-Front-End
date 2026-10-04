@@ -39,6 +39,12 @@ export interface StoreListCommand extends BasePageQuery {
   targetGrowthAmount?: number;
   // 状态(1启用 0停用)
   status?: number;
+
+  // 解析规则版本号
+  parseRule?: string;
+
+ //  解析规则版本号
+ parseRuleVersion ?: number;
 }
 
 export interface StorePageResponse {
@@ -81,6 +87,11 @@ export interface StorePageResponse {
   targetGrowthAmount?: number;
   // 状态(1启用 0停用)
   status?: number;
+  // 解析规则版本号
+  parseRule?: string;
+
+  //  解析规则版本号
+  parseRuleVersion?: number;
 }
 
 export function getStoreListApi(params: StoreListCommand) {
@@ -150,6 +161,11 @@ export interface StoreAddCommand {
   targetGrowthAmount?: number;
   // 状态(1启用 0停用)
   status?: number;
+  // 解析规则版本号
+  parseRule?: string;
+
+  //  解析规则版本号
+  parseRuleVersion?: number;
 }
 
 export const addStoreApi = (data: StoreAddCommand) => {
