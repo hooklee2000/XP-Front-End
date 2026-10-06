@@ -73,7 +73,9 @@ const formData = reactive<StoreAddCommand | StoreUpdateCommand>({
   parseRule: undefined,
 
  //  解析规则版本号
- parseRuleVersion: undefined,
+  parseRuleVersion: undefined,
+ // 授权ApiKey
+  apiKey: undefined
 });
 
 const statusList = useUserStoreHook().dictionaryMap["common.status"];
@@ -301,6 +303,9 @@ async function handleConfirm() {
       </el-form-item>
       <el-form-item prop="parseRuleVersion" label="解析规则版本号" required inline-message>
         <el-input v-model="formData.parseRuleVersion" />
+      </el-form-item>
+       <el-form-item prop="apiKey" label="授权ApiKey" required inline-message>
+        <el-input v-model="formData.apiKey" />
       </el-form-item>
       
       <el-form-item prop="status" label="门店表状态">

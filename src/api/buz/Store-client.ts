@@ -44,7 +44,9 @@ export interface StoreListCommand extends BasePageQuery {
   parseRule?: string;
 
  //  解析规则版本号
- parseRuleVersion ?: number;
+  parseRuleVersion?: number;
+  // 授权ApiKey
+  apiKey?: string;
 }
 
 export interface StorePageResponse {
@@ -92,6 +94,8 @@ export interface StorePageResponse {
 
   //  解析规则版本号
   parseRuleVersion?: number;
+  // 授权ApiKey
+  apiKey?: string;
 }
 
 export function getStoreListApi(params: StoreListCommand) {
@@ -166,6 +170,8 @@ export interface StoreAddCommand {
 
   //  解析规则版本号
   parseRuleVersion?: number;
+  // 授权ApiKey
+  apiKey?: string;
 }
 
 export const addStoreApi = (data: StoreAddCommand) => {
